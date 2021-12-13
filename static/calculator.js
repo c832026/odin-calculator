@@ -70,6 +70,16 @@ function display(event) {
             // Show the expression as a previous record
             PREVIOUS.textContent = `${FIRST_OPERAND} ${OPERATOR} ${SECOND_OPERAND}`;
 
+            // Display error if user trys "num / 0"
+            if (OPERATOR === '/' && (parseFloat(SECOND_OPERAND) === 0)) {
+                DISPLAY.textContent = 'Error: Divide by zero';
+                // Reset operands and operator
+                FIRST_OPERAND = '';
+                SECOND_OPERAND = '';
+                OPERATOR = '';
+                return;
+            }
+
             // Calculate the answer then reset the operands the operator
             QUOCIENT = operate(OPERATOR, parseFloat(FIRST_OPERAND), parseFloat(SECOND_OPERAND));
             FIRST_OPERAND = QUOCIENT;
@@ -94,6 +104,16 @@ function display(event) {
             }
             // Show the expression as a previous record
             PREVIOUS.textContent = `${FIRST_OPERAND} ${OPERATOR} ${SECOND_OPERAND}`;
+            
+            // Display error if user trys "num / 0"
+            if (OPERATOR === '/' && (parseFloat(SECOND_OPERAND) === 0)) {
+                DISPLAY.textContent = 'Error: Divide by zero';
+                // Reset operands and operator
+                FIRST_OPERAND = '';
+                SECOND_OPERAND = '';
+                OPERATOR = '';
+                return;
+            }
 
             // Calculate the answer then reset the operands and operator
             QUOCIENT = operate(OPERATOR, parseFloat(FIRST_OPERAND), parseFloat(SECOND_OPERAND));
@@ -110,6 +130,16 @@ function display(event) {
     if (btnValue === '=' && SECOND_OPERAND) {
         // Show the expression as a previous record
         PREVIOUS.textContent = `${FIRST_OPERAND} ${OPERATOR} ${SECOND_OPERAND}`;
+
+        // Display error if user trys "num / 0"
+        if (OPERATOR === '/' && (parseFloat(SECOND_OPERAND) === 0)) {
+            DISPLAY.textContent = 'Error: Divide by zero';
+            // Reset operands and operator
+            FIRST_OPERAND = '';
+            SECOND_OPERAND = '';
+            OPERATOR = '';
+            return;
+        }
 
         // Calculate the answer then reset the operands and operator        
         QUOCIENT = operate(OPERATOR, parseFloat(FIRST_OPERAND), parseFloat(SECOND_OPERAND));
@@ -135,8 +165,7 @@ BTNS.forEach(btn => {btn.addEventListener('click', display);});
 
 
 // Todo list and knowing Issues : 
-// 1. (num / 0 ) will result in infinity, try display in error message
-// 2. Reset, Delete buttons functions haven't set
-// 3. Precision problem
-// 4. CSS style
-// 5. Keyboard inputs support
+    // Reset, Delete buttons functions haven't set
+    // Precision problem
+    // CSS style 
+    // Keyboard inputs support 
