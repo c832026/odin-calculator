@@ -40,7 +40,6 @@ function display(event) {
         }
     }
 
-    // Check if '.' button is pressed
     if (btnValue === '.') {
         // Set the first operand to '0.' if don't have a value yet
         if (!FIRST_OPERAND) {
@@ -60,7 +59,6 @@ function display(event) {
         }
     }
 
-    // Check if '+' or '-' button is pressed
     if (btnValue === '+' || btnValue === '-') {
         // Check if the two operands and operator already have value
         if (FIRST_OPERAND && OPERATOR) {
@@ -95,7 +93,6 @@ function display(event) {
         }
     }
 
-    // Check if '*' or '/' button is pressed
     if (btnValue === '*' || btnValue ==='/') {
         // Check if the two operands and operator already have value
         if (FIRST_OPERAND && OPERATOR) {
@@ -126,7 +123,6 @@ function display(event) {
         OPERATOR = btnValue;
     }
     
-    // Check if '=' button is pressed
     if (btnValue === '=' && SECOND_OPERAND) {
         // Show the expression as a previous record
         PREVIOUS.textContent = `${FIRST_OPERAND} ${OPERATOR} ${SECOND_OPERAND}`;
@@ -148,6 +144,25 @@ function display(event) {
         OPERATOR = '';
     }
 
+    // Reset operands and operator in quocient when reset-button is clicked
+    if (btnValue === 'Reset') {
+        PREVIOUS.textContent = '';
+        FIRST_OPERAND = '';
+        SECOND_OPERAND = '';
+        OPERATOR = '';
+        QUOCIENT = '';
+    }
+
+    // Delete the last user input
+    if (btnValue === 'Delete') {
+        if (SECOND_OPERAND) {
+            SECOND_OPERAND = SECOND_OPERAND.slice(0, -1);
+        } else if (OPERATOR) {
+            OPERATOR = OPERATOR.slice(0, -1);
+        } else if (FIRST_OPERAND) {
+            FIRST_OPERAND = FIRST_OPERAND.slice(0, -1);
+        }
+    }
     // Update display text
     DISPLAY.textContent = `${FIRST_OPERAND} ${OPERATOR} ${SECOND_OPERAND}`;
 }
@@ -156,6 +171,8 @@ function display(event) {
 const DISPLAY = document.querySelector('#display-current');
 const PREVIOUS = document.querySelector('#display-previous');
 const BTNS = document.querySelectorAll('.btn-container button');
+const RESET = document.querySelector('#reset');
+const DELETE = document.querySelector('#delete');
 let FIRST_OPERAND = '';
 let SECOND_OPERAND = '';
 let OPERATOR = '';
@@ -165,6 +182,5 @@ BTNS.forEach(btn => {btn.addEventListener('click', display);});
 
 
 // Todo list and knowing Issues : 
-    // Reset, Delete buttons functions haven't set
     // CSS style 
     // Keyboard inputs support 
