@@ -26,8 +26,15 @@ function operate(operator, num1, num2) {
 }
 
 function display(event) {
-    // Store the value of button pressed
-    const btnValue = event.target.textContent;
+    let btnValue;
+    // Store the value when button clicked or key pressed
+    if (event.type === 'click') {
+        btnValue = event.target.textContent;
+    } else if (event.type === 'keydown') {
+        // Prevent the default behaviors of browsers
+        event.preventDefault();
+        btnValue = event.key;
+    }
 
     // Check if one of 0-9 button is pressed
     if (!Number.isNaN(parseInt(btnValue))) {
@@ -123,7 +130,7 @@ function display(event) {
         OPERATOR = btnValue;
     }
     
-    if (btnValue === '=' && SECOND_OPERAND) {
+    if ((btnValue === '=' || btnValue === 'Enter') && SECOND_OPERAND) {
         // Show the expression as a previous record
         PREVIOUS.textContent = `${FIRST_OPERAND} ${OPERATOR} ${SECOND_OPERAND}`;
 
@@ -163,6 +170,7 @@ function display(event) {
             FIRST_OPERAND = FIRST_OPERAND.slice(0, -1);
         }
     }
+
     // Update display text
     DISPLAY.textContent = `${FIRST_OPERAND} ${OPERATOR} ${SECOND_OPERAND}`;
 }
@@ -177,10 +185,11 @@ let FIRST_OPERAND = '';
 let SECOND_OPERAND = '';
 let OPERATOR = '';
 let QUOCIENT = '';
-// Event Listener for buttons
+// Event listener for buttons
 BTNS.forEach(btn => {btn.addEventListener('click', display);});
 
+// Event listener for keys
+document.addEventListener('keydown', display);
 
 // Todo list and knowing Issues : 
     // CSS style 
-    // Keyboard inputs support 
