@@ -1,10 +1,10 @@
 function add(num1, num2) {
-    const result = num1 + num2;
+    const result = parseFloat((num1 + num2).toFixed(9));
     return result.toString();
 }
 
 function subtract(num1, num2) {
-    const result = num1 - num2;
+    const result = parseFloat((num1 - num2).toFixed(9));
     return result.toString();
 }
 
