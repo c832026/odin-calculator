@@ -9,12 +9,12 @@ function subtract(num1, num2) {
 }
 
 function multiply(num1, num2) {
-    const result = num1 * num2;
+    const result = parseFloat((num1 * num2).toFixed(9));
     return result.toString();
 }
 
 function divide(num1, num2) {
-    const result = num1 / num2;
+    const result = parseFloat((num1 / num2).toFixed(9));
     return result.toString();
 }
 
@@ -166,6 +166,5 @@ BTNS.forEach(btn => {btn.addEventListener('click', display);});
 
 // Todo list and knowing Issues : 
     // Reset, Delete buttons functions haven't set
-    // Precision problem
     // CSS style 
     // Keyboard inputs support 
