@@ -152,7 +152,7 @@ function display(event) {
     }
 
     // Reset operands and operator in quocient when reset-button is clicked
-    if (btnValue === 'Reset') {
+    if (btnValue === 'Reset' || btnValue === 'Escape') {
         PREVIOUS.textContent = '';
         FIRST_OPERAND = '';
         SECOND_OPERAND = '';
@@ -185,9 +185,9 @@ let FIRST_OPERAND = '';
 let SECOND_OPERAND = '';
 let OPERATOR = '';
 let QUOCIENT = '';
+
 // Event listener for buttons
 BTNS.forEach(btn => {btn.addEventListener('click', display);});
-
 // Event listener for keys
 document.addEventListener('keydown', display);
 
