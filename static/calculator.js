@@ -27,13 +27,38 @@ function operate(operator, num1, num2) {
 
 function display(event) {
     let btnValue;
+
     // Store the value when button clicked or key pressed
     if (event.type === 'click') {
         btnValue = event.target.textContent;
+
+        // Let the clicked element has transform effect
+        let clickedbutton = event.target;
+        if (clickedbutton.id === 'reset' || clickedbutton.id === 'delete') {
+            clickedbutton.classList.add('btn-long-active');
+        } else {
+            clickedbutton.classList.add('btn-active');
+        }
+
     } else if (event.type === 'keydown') {
-        // Prevent the default behaviors of browsers
-        event.preventDefault();
         btnValue = event.key;
+
+        // Let the key pressed associated element has transform effect
+        let triggeredButton;
+        let key;
+        BTNS.forEach(btn => {
+            if (btn.dataset.key === btnValue) {
+                triggeredButton = btn;
+                key = btn.dataset.key;
+            }    
+        });
+        if (key === 'Escape' || key === 'Delete') {
+            triggeredButton.classList.add('btn-long-active');
+        } else if (key === undefined) {
+            return;
+        } else {
+            triggeredButton.classList.add('btn-active');
+        }
     }
 
     // Check if one of 0-9 button is pressed
@@ -101,6 +126,10 @@ function display(event) {
     }
 
     if (btnValue === '*' || btnValue ==='/') {
+        if (btnValue === '/') {
+            // Prevent the default behaviors of browsers
+            event.preventDefault();
+        }
         // Check if the two operands and operator already have value
         if (FIRST_OPERAND && OPERATOR) {
             if (!SECOND_OPERAND) {
@@ -175,6 +204,14 @@ function display(event) {
     DISPLAY.textContent = `${FIRST_OPERAND} ${OPERATOR} ${SECOND_OPERAND}`;
 }
 
+function resetKeyAnimation(event) {
+    // Choose one event while multiple transition-end event triggered
+    if (event.propertyName === 'background-color') {
+        event.target.classList.value = '';
+    }
+    return;
+}
+
 
 const DISPLAY = document.querySelector('#display-current');
 const PREVIOUS = document.querySelector('#display-previous');
@@ -186,10 +223,7 @@ let SECOND_OPERAND = '';
 let OPERATOR = '';
 let QUOCIENT = '';
 
-// Event listener for buttons
 BTNS.forEach(btn => {btn.addEventListener('click', display);});
-// Event listener for keys
-document.addEventListener('keydown', display);
-
-// Todo list and knowing Issues : 
-    // CSS style 
+window.addEventListener('keydown', display);
+// Reset the key pressed animation
+BTNS.forEach(btn => {btn.addEventListener('transitionend', resetKeyAnimation)})
